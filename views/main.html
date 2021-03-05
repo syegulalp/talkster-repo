@@ -1,0 +1,9 @@
+% for msg in messages:
+<h1>{{msg.user.name}}</h1>
+<small>{{msg.date.strftime('%Y-%m-%d %H-%m')}}</small>
+% if msg.reply_to:
+Replying to <b>{{msg.reply_to.user.name}}</b>
+% end
+<p>{{msg.message}}</p>
+<hr/>
+% end
