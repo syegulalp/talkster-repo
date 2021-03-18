@@ -6,16 +6,16 @@ pathlib.Path("./data/app.db").unlink(missing_ok=True)
 
 # Create database and tables
 
-from models import db, User, Msg
+from models import db, User, Msg, Token
 
 db.connect()
-db.create_tables([User, Msg])
+db.create_tables([User, Msg, Token])
 
 # Add sample data
 
 users = [
-    {"name": "Serdar"},
-    {"name": "Spike"},
+    {"name": "Serdar", "password": "motoko1995"},
+    {"name": "Spike", "password": "bandai1998"},
     {"name": "Jet"},
     {"name": "Faye"},
     {"name": "Ed"},
@@ -50,7 +50,8 @@ def make_msg(msg, reply_to=None):
 
 
 for user in users:
-    User.create(**user)
+    new_user = User.create(**user)
+    new_user.set_password(user.get('password','vicious1998'))
 
 for msg in msgs:
     new_msg = make_msg(msg)

@@ -1,3 +1,10 @@
+% if not user:
+<a href="/login">Click here to login</a>
+% else:
+<h2>Hello, {{user.name}}</h2>
+<a href="/logout">Wait, that's not me</a>
+% end
+<hr/>
 % for msg in messages:
 <h1>{{msg.user.name}}</h1>
 <small>{{msg.date.strftime('%Y-%m-%d %H-%m')}}</small>
