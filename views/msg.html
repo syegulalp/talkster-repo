@@ -1,0 +1,7 @@
+<h1>{{msg.user.name}}</h1>
+<small><a href="{{msg.link}}">{{msg.id}} / {{msg.date.strftime('%Y-%m-%d %H-%m')}}</a></small>
+% if msg.reply_to:
+<a href="{{msg.reply_to.link}}">Replying to <b>{{msg.reply_to.user.name}}</b></a>
+% end
+<p>{{msg.message}}</p>
+<hr/>

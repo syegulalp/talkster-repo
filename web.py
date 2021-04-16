@@ -5,8 +5,36 @@ from models import Msg, User, Token
 @route("/")
 def main_route():
     user = User.get_user_from_token(request)
-    messages = Msg.select().order_by(Msg.date.desc())
+    messages = Msg.get_top_level_posts().limit(7)
     return template("main.html", messages=messages, user=user)
+
+
+@route("/", method="POST")
+def main_route_post():
+    post_message()
+    return main_route()
+
+MSG = Msg.msg_route_prefix
+
+@route(f"{MSG}/<msg_id:int>")
+def read_msg(msg_id):
+    user = User.get_user_from_token(request)
+    msg = Msg.get(id=msg_id)
+    return template("read_msg.html", user=user, msg=msg)
+
+
+@route(f"{MSG}/<msg_id:int>", method="POST")
+def post_reply(msg_id):    
+    reply = post_message(msg_id)
+    return read_msg(msg_id)
+
+
+def post_message(reply_to=None):
+    user = User.get_user_from_token(request)
+    if not user:
+        response.status = 401
+        return "Not logged in"
+    return Msg.create(user=user, message=request.forms.post_text, reply_to=reply_to)
 
 
 @route("/login")

@@ -32,6 +32,14 @@ msgs = [
             {"user": "Ed", "message": "Me too!"},
         ],
     },
+    {
+        "user": "Serdar",
+        "message": "Does 'Voltswagen' count as an April Fuel's joke?",
+        "replies": [
+            {"user": "Faye", "message": "Boo!! 🍅🍅🍅"},
+            {"user": "Ed", "message": "That's the worst one yet."},
+        ],
+    },
 ]
 
 
@@ -51,7 +59,7 @@ def make_msg(msg, reply_to=None):
 
 for user in users:
     new_user = User.create(**user)
-    new_user.set_password(user.get('password','vicious1998'))
+    new_user.set_password(user.get("password", "vicious1998"))
 
 for msg in msgs:
     new_msg = make_msg(msg)

@@ -5,12 +5,14 @@
 <a href="/logout">Wait, that's not me</a>
 % end
 <hr/>
-% for msg in messages:
-<h1>{{msg.user.name}}</h1>
-<small>{{msg.date.strftime('%Y-%m-%d %H-%m')}}</small>
-% if msg.reply_to:
-Replying to <b>{{msg.reply_to.user.name}}</b>
-% end
-<p>{{msg.message}}</p>
+% if user:
+% include post_form.html
 <hr/>
+% end
+% for msg in messages:
+% include msg.html
+% replies = msg.replies().count()
+% if replies:
+<a href="{{msg.link}}">({{replies}} replies)</a>
+% end
 % end

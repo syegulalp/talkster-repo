@@ -1,0 +1,13 @@
+% include msg.html
+% if user:
+% include post_form.html
+<hr/>
+% end
+% replies = msg.replies()
+% if replies.count():
+<blockquote>
+% for msg in replies:
+% include msg.html
+% end
+</blockquote>
+<hr/>
